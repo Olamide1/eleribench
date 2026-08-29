@@ -13,11 +13,11 @@ duplicate charges, lookalike wallet addresses, and more) that are easy for a
 human to miss skimming a statement and easy for a naive LLM prompt to get
 wrong.
 
-**Eleri**, a 1.5B fine-tune, is the reference model this benchmark was built
-to develop and evaluate (model card link to be added once published). It's
-also used in production by Sawa, a consumer product for auditing AI agent
-spend — but the benchmark, test set, and evaluation harness here are
-independent of both.
+**[Eleri](https://huggingface.co/theakomolafe/eleri-1.5b)**, a 1.5B
+fine-tune, is the reference model this benchmark was built to develop and
+evaluate. It's also used in production by Sawa, a consumer product for
+auditing AI agent spend — but the benchmark, test set, and evaluation
+harness here are independent of both.
 
 ## Leaderboard
 
