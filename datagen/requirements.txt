@@ -1,0 +1,2 @@
+-r ../schemas/requirements.txt
+anthropic>=1.0

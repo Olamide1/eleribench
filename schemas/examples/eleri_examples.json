@@ -1,0 +1,1047 @@
+[
+  {
+    "id": "cat_compute_inference",
+    "input": {
+      "mandate": {
+        "mandate_id": "m_001",
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.openai.com"],
+        "allowed_purposes": ["LLM inference"],
+        "expiry": "2026-12-31T00:00:00Z",
+        "created_at": "2026-01-01T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_research_01",
+        "intent": "Run inference calls to summarize daily research digest",
+        "window_start": "2026-08-20T09:00:00Z",
+        "window_end": "2026-08-20T09:05:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 4.20,
+        "currency": "USD",
+        "vendor": "api.openai.com",
+        "timestamp": "2026-08-20T09:05:10Z",
+        "reference": "ref_c001"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "compute_inference",
+      "anomalies": [],
+      "confidence": 0.98,
+      "reason": "LLM API charge matches allowed vendor and stated purpose within budget."
+    }
+  },
+  {
+    "id": "cat_data_api",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 500, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.polygon.io"],
+        "allowed_purposes": ["market data feed"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_trader_02",
+        "intent": "Pull live market data feed for equities",
+        "window_start": "2026-08-21T10:00:00Z",
+        "window_end": "2026-08-21T10:01:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 12.00,
+        "currency": "USD",
+        "vendor": "api.polygon.io",
+        "timestamp": "2026-08-21T10:01:05Z",
+        "reference": "ref_c002"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "data_api",
+      "anomalies": [],
+      "confidence": 0.97,
+      "reason": "Market data API charge matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_storage_bandwidth",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 100, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["s3.amazonaws.com"],
+        "allowed_purposes": ["object storage"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_pipeline_03",
+        "intent": "Store processed dataset artifacts",
+        "window_start": "2026-08-19T02:00:00Z",
+        "window_end": "2026-08-19T02:02:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 6.75,
+        "currency": "USD",
+        "vendor": "s3.amazonaws.com",
+        "timestamp": "2026-08-19T02:02:15Z",
+        "reference": "ref_c003"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "storage_bandwidth",
+      "anomalies": [],
+      "confidence": 0.96,
+      "reason": "Cloud storage charge matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_saas_subscription",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 50, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["notion.so"],
+        "allowed_purposes": ["team workspace subscription"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_ops_04",
+        "intent": "Renew monthly workspace subscription",
+        "window_start": "2026-08-01T00:00:00Z",
+        "window_end": "2026-08-01T00:01:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 10.00,
+        "currency": "USD",
+        "vendor": "notion.so",
+        "timestamp": "2026-08-01T00:01:00Z",
+        "reference": "ref_c004"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "saas_subscription",
+      "anomalies": [],
+      "confidence": 0.98,
+      "reason": "Recurring subscription charge matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_software_tools",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 300, "currency": "USD", "period": "one_time" },
+        "allowed_vendors": ["jetbrains.com"],
+        "allowed_purposes": ["IDE license"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_devtools_05",
+        "intent": "Purchase annual IDE license",
+        "window_start": "2026-08-15T14:00:00Z",
+        "window_end": "2026-08-15T14:02:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 149.00,
+        "currency": "USD",
+        "vendor": "jetbrains.com",
+        "timestamp": "2026-08-15T14:02:05Z",
+        "reference": "ref_c005"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "software_tools",
+      "anomalies": [],
+      "confidence": 0.97,
+      "reason": "One-off license purchase matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_content_media",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["shutterstock.com"],
+        "allowed_purposes": ["stock image licensing"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_content_06",
+        "intent": "License stock images for blog post",
+        "window_start": "2026-08-10T11:00:00Z",
+        "window_end": "2026-08-10T11:03:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 29.00,
+        "currency": "USD",
+        "vendor": "shutterstock.com",
+        "timestamp": "2026-08-10T11:03:10Z",
+        "reference": "ref_c006"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "content_media",
+      "anomalies": [],
+      "confidence": 0.96,
+      "reason": "Stock media licensing charge matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_communications",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 100, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["twilio.com"],
+        "allowed_purposes": ["SMS delivery"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_notify_07",
+        "intent": "Send SMS delivery notifications to users",
+        "window_start": "2026-08-22T08:00:00Z",
+        "window_end": "2026-08-22T08:01:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 3.15,
+        "currency": "USD",
+        "vendor": "twilio.com",
+        "timestamp": "2026-08-22T08:01:05Z",
+        "reference": "ref_c007"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "communications",
+      "anomalies": [],
+      "confidence": 0.97,
+      "reason": "SMS delivery charge matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_advertising_promotion",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 1000, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["ads.google.com"],
+        "allowed_purposes": ["ad campaign"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_growth_08",
+        "intent": "Run paid ad campaign for product launch",
+        "window_start": "2026-08-18T13:00:00Z",
+        "window_end": "2026-08-18T13:02:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 250.00,
+        "currency": "USD",
+        "vendor": "ads.google.com",
+        "timestamp": "2026-08-18T13:02:10Z",
+        "reference": "ref_c008"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "advertising_promotion",
+      "anomalies": [],
+      "confidence": 0.97,
+      "reason": "Ad spend charge matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_commerce_goods",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 500, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["amazon.com"],
+        "allowed_purposes": ["office supplies purchase"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_procure_09",
+        "intent": "Purchase office supplies for team",
+        "window_start": "2026-08-05T16:00:00Z",
+        "window_end": "2026-08-05T16:02:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 87.40,
+        "currency": "USD",
+        "vendor": "amazon.com",
+        "timestamp": "2026-08-05T16:02:05Z",
+        "reference": "ref_c009"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "commerce_goods",
+      "anomalies": [],
+      "confidence": 0.96,
+      "reason": "Physical goods checkout matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_commerce_services",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 300, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["taskrabbit.com"],
+        "allowed_purposes": ["book a delivery task"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_errands_10",
+        "intent": "Book a same-day delivery task",
+        "window_start": "2026-08-12T09:00:00Z",
+        "window_end": "2026-08-12T09:02:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 35.00,
+        "currency": "USD",
+        "vendor": "taskrabbit.com",
+        "timestamp": "2026-08-12T09:02:10Z",
+        "reference": "ref_c010"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "commerce_services",
+      "anomalies": [],
+      "confidence": 0.96,
+      "reason": "Booked delivery service matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_travel_logistics",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 2000, "currency": "USD", "period": "one_time" },
+        "allowed_vendors": ["expedia.com"],
+        "allowed_purposes": ["flight booking"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_travel_11",
+        "intent": "Book flight for conference trip",
+        "window_start": "2026-08-08T07:00:00Z",
+        "window_end": "2026-08-08T07:05:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 480.00,
+        "currency": "USD",
+        "vendor": "expedia.com",
+        "timestamp": "2026-08-08T07:05:20Z",
+        "reference": "ref_c011"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "travel_logistics",
+      "anomalies": [],
+      "confidence": 0.97,
+      "reason": "Flight booking charge matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_financial_fees",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 100, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["stripe.com"],
+        "allowed_purposes": ["payment processing fee"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_billing_12",
+        "intent": "Pay processing fee on settled invoice",
+        "window_start": "2026-08-14T12:00:00Z",
+        "window_end": "2026-08-14T12:01:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 2.90,
+        "currency": "USD",
+        "vendor": "stripe.com",
+        "timestamp": "2026-08-14T12:01:05Z",
+        "reference": "ref_c012"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "financial_fees",
+      "anomalies": [],
+      "confidence": 0.95,
+      "reason": "Processing fee charge matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_network_gas_fees",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 50, "currency": "USDC", "period": "monthly" },
+        "allowed_vendors": ["base_network"],
+        "allowed_purposes": ["settlement gas fee"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_onchain_13",
+        "intent": "Pay gas fee to settle x402 payment on Base",
+        "window_start": "2026-08-17T18:00:00Z",
+        "window_end": "2026-08-17T18:01:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 0.08,
+        "currency": "USDC",
+        "vendor": "base_network",
+        "timestamp": "2026-08-17T18:01:02Z",
+        "reference": "ref_c013",
+        "chain": "base",
+        "tx_hash": "0x9a1c2e4f6b8d0a3c5e7f9b1d3a5c7e9f1b3d5a7c9e1f3b5d7a9c1e3f5b7d9a1c",
+        "settlement_status": "settled",
+        "fee_breakdown": { "gas": 0.08, "facilitator_fee": 0.0 }
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "network_gas_fees",
+      "anomalies": [],
+      "confidence": 0.94,
+      "reason": "On-chain gas fee for settlement matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_human_services",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 1000, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["upwork.com"],
+        "allowed_purposes": ["freelancer task"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_hiring_14",
+        "intent": "Pay freelancer for human-in-the-loop review task",
+        "window_start": "2026-08-11T15:00:00Z",
+        "window_end": "2026-08-11T15:03:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 60.00,
+        "currency": "USD",
+        "vendor": "upwork.com",
+        "timestamp": "2026-08-11T15:03:10Z",
+        "reference": "ref_c014"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "human_services",
+      "anomalies": [],
+      "confidence": 0.96,
+      "reason": "Freelancer task payment matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_deposits_transfers",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 5000, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["wise.com"],
+        "allowed_purposes": ["internal wallet top-up"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_treasury_15",
+        "intent": "Top up agent operating wallet",
+        "window_start": "2026-08-06T06:00:00Z",
+        "window_end": "2026-08-06T06:01:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 500.00,
+        "currency": "USD",
+        "vendor": "wise.com",
+        "timestamp": "2026-08-06T06:01:05Z",
+        "reference": "ref_c015"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "deposits_transfers",
+      "anomalies": [],
+      "confidence": 0.95,
+      "reason": "Internal wallet top-up matches allowed vendor and purpose."
+    }
+  },
+  {
+    "id": "cat_other_unclassified",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["miscvendor.example"],
+        "allowed_purposes": ["general operating expense"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_misc_16",
+        "intent": "Pay a general operating expense that doesn't fit a specific category",
+        "window_start": "2026-08-09T10:00:00Z",
+        "window_end": "2026-08-09T10:01:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 19.99,
+        "currency": "USD",
+        "vendor": "miscvendor.example",
+        "timestamp": "2026-08-09T10:01:05Z",
+        "reference": "ref_c016"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "other_unclassified",
+      "anomalies": [],
+      "confidence": 0.7,
+      "reason": "Charge is authorized but does not fit any specific spend category."
+    }
+  },
+  {
+    "id": "anom_amount_exceeds_mandate",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 10, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.openai.com"],
+        "allowed_purposes": ["LLM inference"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_research_01",
+        "intent": "Run a large batch inference job",
+        "window_start": "2026-08-20T09:00:00Z",
+        "window_end": "2026-08-20T09:05:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 14.75,
+        "currency": "USD",
+        "vendor": "api.openai.com",
+        "timestamp": "2026-08-20T09:05:10Z",
+        "reference": "ref_a001"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "compute_inference",
+      "anomalies": ["amount_exceeds_mandate"],
+      "confidence": 0.96,
+      "reason": "Charge of $14.75 exceeds the $10 monthly mandate cap."
+    }
+  },
+  {
+    "id": "anom_vendor_not_allowed",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.openai.com"],
+        "allowed_purposes": ["LLM inference"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_research_01",
+        "intent": "Run inference calls",
+        "window_start": "2026-08-20T09:00:00Z",
+        "window_end": "2026-08-20T09:05:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 5.00,
+        "currency": "USD",
+        "vendor": "api.anthropic.com",
+        "timestamp": "2026-08-20T09:05:10Z",
+        "reference": "ref_a002"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "compute_inference",
+      "anomalies": ["vendor_not_allowed"],
+      "confidence": 0.95,
+      "reason": "Vendor api.anthropic.com is not on the mandate's allowed-vendor list."
+    }
+  },
+  {
+    "id": "anom_mandate_expired",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.openai.com"],
+        "allowed_purposes": ["LLM inference"],
+        "expiry": "2026-07-01T00:00:00Z",
+        "created_at": "2026-06-01T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_research_01",
+        "intent": "Run inference calls",
+        "window_start": "2026-08-20T09:00:00Z",
+        "window_end": "2026-08-20T09:05:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 5.00,
+        "currency": "USD",
+        "vendor": "api.openai.com",
+        "timestamp": "2026-08-20T09:05:10Z",
+        "reference": "ref_a003"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "compute_inference",
+      "anomalies": ["mandate_expired"],
+      "confidence": 0.97,
+      "reason": "Payment occurred after the mandate's expiry of 2026-07-01."
+    }
+  },
+  {
+    "id": "anom_no_matching_mandate",
+    "input": {
+      "activity": {
+        "agent_id": "agt_research_01",
+        "intent": "Run inference calls",
+        "window_start": "2026-08-20T09:00:00Z",
+        "window_end": "2026-08-20T09:05:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 5.00,
+        "currency": "USD",
+        "vendor": "api.openai.com",
+        "timestamp": "2026-08-20T09:05:10Z",
+        "reference": "ref_a004"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "compute_inference",
+      "anomalies": ["no_matching_mandate"],
+      "confidence": 0.9,
+      "reason": "Payment settled with no mandate on file authorizing this agent's spend."
+    }
+  },
+  {
+    "id": "anom_purpose_mismatch",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["jetbrains.com"],
+        "allowed_purposes": ["IDE software licenses"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_content_06",
+        "intent": "Buy stock photos for marketing site",
+        "window_start": "2026-08-10T11:00:00Z",
+        "window_end": "2026-08-10T11:03:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 29.00,
+        "currency": "USD",
+        "vendor": "jetbrains.com",
+        "timestamp": "2026-08-10T11:03:10Z",
+        "reference": "ref_a005"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "content_media",
+      "anomalies": ["purpose_mismatch"],
+      "confidence": 0.9,
+      "reason": "Agent bought stock photos, but the mandate only authorizes IDE licenses."
+    }
+  },
+  {
+    "id": "anom_duplicate_charge",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["notion.so"],
+        "allowed_purposes": ["team workspace subscription"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_ops_04",
+        "intent": "Renew monthly workspace subscription",
+        "window_start": "2026-08-01T00:00:00Z",
+        "window_end": "2026-08-01T00:01:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 10.00,
+        "currency": "USD",
+        "vendor": "notion.so",
+        "timestamp": "2026-08-01T00:04:00Z",
+        "reference": "ref_c004"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "saas_subscription",
+      "anomalies": ["duplicate_charge"],
+      "confidence": 0.93,
+      "reason": "Reference ref_c004 was already settled minutes earlier for the same amount."
+    },
+    "meta": { "note": "Duplicate of cat_saas_subscription's payment.reference, settled again 3 minutes later." }
+  },
+  {
+    "id": "anom_address_poisoning_lookalike",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 50, "currency": "USDC", "period": "monthly" },
+        "allowed_vendors": ["0x71C7656EC7ab88b098defB751B7401B5f6d8976"],
+        "allowed_purposes": ["settlement to known counterparty wallet"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_onchain_13",
+        "intent": "Pay known counterparty for API usage",
+        "window_start": "2026-08-17T18:00:00Z",
+        "window_end": "2026-08-17T18:01:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 12.00,
+        "currency": "USDC",
+        "vendor": "counterparty_wallet",
+        "timestamp": "2026-08-17T18:01:02Z",
+        "reference": "ref_a007",
+        "chain": "base",
+        "counterparty_address": "0x71C7656EC7ab88b098de1119b7401B5f6d8976",
+        "settlement_status": "settled"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "network_gas_fees",
+      "anomalies": ["address_poisoning_lookalike"],
+      "confidence": 0.92,
+      "reason": "Counterparty address matches the allowlist only at prefix/suffix; middle characters differ."
+    }
+  },
+  {
+    "id": "anom_wrong_network_or_token",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 50, "currency": "USDC", "period": "monthly" },
+        "allowed_vendors": ["base_network"],
+        "allowed_purposes": ["settlement gas fee"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_onchain_13",
+        "intent": "Pay gas fee to settle x402 payment on Base",
+        "window_start": "2026-08-17T18:00:00Z",
+        "window_end": "2026-08-17T18:01:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 0.08,
+        "currency": "USDC",
+        "vendor": "base_network",
+        "timestamp": "2026-08-17T18:01:02Z",
+        "reference": "ref_a008",
+        "chain": "ethereum",
+        "token_contract": "0x0000000000000000000000000000000000dead",
+        "settlement_status": "settled"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "network_gas_fees",
+      "anomalies": ["wrong_network_or_token"],
+      "confidence": 0.94,
+      "reason": "Mandate authorizes Base settlement, but payment settled on ethereum with an unrecognized token contract."
+    }
+  },
+  {
+    "id": "anom_settlement_not_found",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 50, "currency": "USDC", "period": "monthly" },
+        "allowed_vendors": ["base_network"],
+        "allowed_purposes": ["settlement gas fee"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_onchain_13",
+        "intent": "Pay gas fee to settle x402 payment on Base",
+        "window_start": "2026-08-17T18:00:00Z",
+        "window_end": "2026-08-17T18:01:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 0.08,
+        "currency": "USDC",
+        "vendor": "base_network",
+        "timestamp": "2026-08-17T18:01:02Z",
+        "reference": "ref_a009",
+        "chain": "base",
+        "tx_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "settlement_status": "not_found"
+      }
+    },
+    "output": {
+      "verdict": "mismatch",
+      "category": "network_gas_fees",
+      "anomalies": ["settlement_not_found"],
+      "confidence": 0.93,
+      "reason": "Receipt claims settlement but no matching transaction exists on-chain for this hash."
+    }
+  },
+  {
+    "id": "anom_budget_period_at_risk",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.openai.com"],
+        "allowed_purposes": ["LLM inference"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_research_01",
+        "intent": "Run inference calls, cumulative spend this month is $172 of $200",
+        "window_start": "2026-08-20T09:00:00Z",
+        "window_end": "2026-08-20T09:05:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 8.00,
+        "currency": "USD",
+        "vendor": "api.openai.com",
+        "timestamp": "2026-08-20T09:05:10Z",
+        "reference": "ref_a010"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "compute_inference",
+      "anomalies": ["budget_period_at_risk"],
+      "confidence": 0.88,
+      "reason": "Charge is authorized but cumulative monthly spend is now 90% of the mandate budget."
+    }
+  },
+  {
+    "id": "anom_velocity_anomaly",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.openai.com"],
+        "allowed_purposes": ["LLM inference"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_research_01",
+        "intent": "Run inference calls; this is the 40th call in the last hour vs a typical 2-3 per hour",
+        "window_start": "2026-08-20T09:00:00Z",
+        "window_end": "2026-08-20T09:05:00Z"
+      },
+      "payment": {
+        "protocol": "x402",
+        "amount": 0.50,
+        "currency": "USD",
+        "vendor": "api.openai.com",
+        "timestamp": "2026-08-20T09:05:10Z",
+        "reference": "ref_a011"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "compute_inference",
+      "anomalies": ["velocity_anomaly"],
+      "confidence": 0.85,
+      "reason": "Call frequency is far above the agent's typical pattern for this vendor."
+    }
+  },
+  {
+    "id": "anom_amount_discrepancy",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.polygon.io"],
+        "allowed_purposes": ["market data feed"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_trader_02",
+        "intent": "Pull live market data feed; quoted price was $12.00",
+        "window_start": "2026-08-21T10:00:00Z",
+        "window_end": "2026-08-21T10:01:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 13.35,
+        "currency": "USD",
+        "vendor": "api.polygon.io",
+        "timestamp": "2026-08-21T10:01:05Z",
+        "reference": "ref_a012"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "data_api",
+      "anomalies": ["amount_discrepancy"],
+      "confidence": 0.82,
+      "reason": "Settled amount of $13.35 differs from the $12.00 quoted in the activity log."
+    }
+  },
+  {
+    "id": "anom_currency_mismatch",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["shutterstock.com"],
+        "allowed_purposes": ["stock image licensing"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_content_06",
+        "intent": "License stock images for blog post",
+        "window_start": "2026-08-10T11:00:00Z",
+        "window_end": "2026-08-10T11:03:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 27.00,
+        "currency": "EUR",
+        "vendor": "shutterstock.com",
+        "timestamp": "2026-08-10T11:03:10Z",
+        "reference": "ref_a013"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "content_media",
+      "anomalies": ["currency_mismatch"],
+      "confidence": 0.8,
+      "reason": "Mandate budget is denominated in USD but payment settled in EUR."
+    }
+  },
+  {
+    "id": "anom_split_transaction_pattern",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 100, "currency": "USD", "period": "one_time" },
+        "allowed_vendors": ["amazon.com"],
+        "allowed_purposes": ["office supplies purchase"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_procure_09",
+        "intent": "Purchase office supplies; this is the 4th charge to amazon.com today, each just under the $30 per-transaction cap",
+        "window_start": "2026-08-05T16:00:00Z",
+        "window_end": "2026-08-05T16:02:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 29.50,
+        "currency": "USD",
+        "vendor": "amazon.com",
+        "timestamp": "2026-08-05T20:02:05Z",
+        "reference": "ref_a014"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "commerce_goods",
+      "anomalies": ["split_transaction_pattern"],
+      "confidence": 0.78,
+      "reason": "Fourth same-day charge to the same vendor each staying just under the per-transaction cap."
+    }
+  },
+  {
+    "id": "anom_stale_settlement",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 300, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["taskrabbit.com"],
+        "allowed_purposes": ["book a delivery task"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_errands_10",
+        "intent": "Book a same-day delivery task",
+        "window_start": "2026-08-01T09:00:00Z",
+        "window_end": "2026-08-01T09:02:00Z"
+      },
+      "payment": {
+        "protocol": "stripe",
+        "amount": 35.00,
+        "currency": "USD",
+        "vendor": "taskrabbit.com",
+        "timestamp": "2026-08-14T22:40:00Z",
+        "reference": "ref_a015"
+      }
+    },
+    "output": {
+      "verdict": "match",
+      "category": "commerce_services",
+      "anomalies": ["stale_settlement"],
+      "confidence": 0.75,
+      "reason": "Payment settled 13 days after the activity window closed."
+    }
+  },
+  {
+    "id": "unverifiable_missing_payment",
+    "input": {
+      "mandate": {
+        "budget": { "amount": 200, "currency": "USD", "period": "monthly" },
+        "allowed_vendors": ["api.openai.com"],
+        "allowed_purposes": ["LLM inference"],
+        "expiry": "2026-12-31T00:00:00Z"
+      },
+      "activity": {
+        "agent_id": "agt_research_01",
+        "intent": "Run inference calls",
+        "window_start": "2026-08-20T09:00:00Z",
+        "window_end": "2026-08-20T09:05:00Z"
+      }
+    },
+    "output": {
+      "verdict": "unverifiable",
+      "category": "other_unclassified",
+      "anomalies": [],
+      "confidence": 0.6,
+      "reason": "No payment/settlement record is present to verify against the mandate."
+    }
+  },
+  {
+    "id": "unverifiable_missing_mandate_and_activity_garbled_payment",
+    "input": {
+      "payment": {
+        "protocol": "other",
+        "vendor": "corrupt",
+        "reference": "ref_a017",
+        "timestamp": "2026-08-20T09:05:10Z"
+      }
+    },
+    "output": {
+      "verdict": "unverifiable",
+      "category": "other_unclassified",
+      "anomalies": [],
+      "confidence": 0.55,
+      "reason": "Payment record is truncated/unreadable and no mandate is present to compare against."
+    }
+  }
+]

@@ -1,0 +1,17 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+.venv*/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# regenerable data / raw prediction dumps
+datagen/output/
+bench/results/*.jsonl
+
+# os
+.DS_Store

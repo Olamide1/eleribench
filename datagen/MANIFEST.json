@@ -1,0 +1,180 @@
+{
+  "generated_at": "2026-08-27T19:17:03Z",
+  "splits": {
+    "train": {
+      "n": 30000,
+      "seed": 1,
+      "sha256": "1f005f1c2b41658a4e4ff739a989de9a16436fe640ea62cd75026c70b2823874",
+      "distribution_report": {
+        "n": 30000,
+        "by_bucket": {
+          "single_anomaly": 9000,
+          "match": 16500,
+          "unverifiable": 1500,
+          "multi_anomaly": 3000
+        },
+        "by_verdict": {
+          "match": 20465,
+          "unverifiable": 1500,
+          "mismatch": 8035
+        },
+        "by_category": {
+          "content_media": 1593,
+          "commerce_services": 1566,
+          "other_unclassified": 3110,
+          "network_gas_fees": 4614,
+          "human_services": 1623,
+          "communications": 1607,
+          "advertising_promotion": 1622,
+          "commerce_goods": 1570,
+          "financial_fees": 1616,
+          "data_api": 1577,
+          "travel_logistics": 1590,
+          "compute_inference": 1588,
+          "saas_subscription": 1597,
+          "software_tools": 1548,
+          "storage_bandwidth": 1583,
+          "deposits_transfers": 1596
+        },
+        "by_anomaly": {
+          "budget_period_at_risk": 1042,
+          "wrong_network_or_token": 1035,
+          "split_transaction_pattern": 1063,
+          "duplicate_charge": 1043,
+          "vendor_not_allowed": 1030,
+          "velocity_anomaly": 1035,
+          "stale_settlement": 1035,
+          "amount_discrepancy": 1050,
+          "no_matching_mandate": 1052,
+          "settlement_not_found": 1057,
+          "purpose_mismatch": 1040,
+          "mandate_expired": 1029,
+          "amount_exceeds_mandate": 1051,
+          "currency_mismatch": 1062,
+          "address_poisoning_lookalike": 1017
+        },
+        "hard_negative_count": 4327,
+        "hard_negative_pct": 14.42,
+        "min_category_count": 1548,
+        "min_anomaly_count": 1017
+      }
+    },
+    "val": {
+      "n": 1500,
+      "seed": 2,
+      "sha256": "6a08f4e2125a8757adeef5ad81fb8e23aceb7e1ebc97244cfbbdf92167ef524b",
+      "distribution_report": {
+        "n": 1500,
+        "by_bucket": {
+          "single_anomaly": 450,
+          "multi_anomaly": 150,
+          "match": 825,
+          "unverifiable": 75
+        },
+        "by_verdict": {
+          "match": 1020,
+          "mismatch": 405,
+          "unverifiable": 75
+        },
+        "by_category": {
+          "other_unclassified": 166,
+          "communications": 81,
+          "content_media": 75,
+          "network_gas_fees": 226,
+          "software_tools": 71,
+          "commerce_services": 79,
+          "advertising_promotion": 85,
+          "financial_fees": 77,
+          "compute_inference": 80,
+          "deposits_transfers": 89,
+          "data_api": 74,
+          "storage_bandwidth": 82,
+          "commerce_goods": 90,
+          "saas_subscription": 76,
+          "human_services": 72,
+          "travel_logistics": 77
+        },
+        "by_anomaly": {
+          "budget_period_at_risk": 50,
+          "no_matching_mandate": 50,
+          "purpose_mismatch": 58,
+          "split_transaction_pattern": 53,
+          "amount_discrepancy": 56,
+          "vendor_not_allowed": 52,
+          "wrong_network_or_token": 46,
+          "duplicate_charge": 52,
+          "mandate_expired": 56,
+          "stale_settlement": 52,
+          "settlement_not_found": 53,
+          "address_poisoning_lookalike": 45,
+          "amount_exceeds_mandate": 52,
+          "velocity_anomaly": 55,
+          "currency_mismatch": 53
+        },
+        "hard_negative_count": 201,
+        "hard_negative_pct": 13.4,
+        "min_category_count": 71,
+        "min_anomaly_count": 45
+      }
+    },
+    "test": {
+      "n": 1500,
+      "seed": 999,
+      "sha256": "ae5a1cdaffd60a6edfef4d495a7ea3780429e4d5c4baf4997a6bf8e42b01a5bd",
+      "distribution_report": {
+        "n": 1500,
+        "by_bucket": {
+          "single_anomaly": 450,
+          "match": 825,
+          "multi_anomaly": 150,
+          "unverifiable": 75
+        },
+        "by_verdict": {
+          "mismatch": 403,
+          "match": 1022,
+          "unverifiable": 75
+        },
+        "by_category": {
+          "commerce_services": 75,
+          "content_media": 77,
+          "advertising_promotion": 86,
+          "network_gas_fees": 225,
+          "commerce_goods": 87,
+          "data_api": 79,
+          "other_unclassified": 152,
+          "human_services": 70,
+          "storage_bandwidth": 92,
+          "deposits_transfers": 83,
+          "saas_subscription": 81,
+          "software_tools": 73,
+          "travel_logistics": 83,
+          "compute_inference": 80,
+          "communications": 84,
+          "financial_fees": 73
+        },
+        "by_anomaly": {
+          "no_matching_mandate": 45,
+          "purpose_mismatch": 61,
+          "settlement_not_found": 49,
+          "budget_period_at_risk": 58,
+          "velocity_anomaly": 49,
+          "split_transaction_pattern": 60,
+          "amount_exceeds_mandate": 51,
+          "stale_settlement": 51,
+          "mandate_expired": 50,
+          "vendor_not_allowed": 56,
+          "duplicate_charge": 57,
+          "currency_mismatch": 50,
+          "address_poisoning_lookalike": 60,
+          "wrong_network_or_token": 41,
+          "amount_discrepancy": 46
+        },
+        "hard_negative_count": 232,
+        "hard_negative_pct": 15.47,
+        "min_category_count": 70,
+        "min_anomaly_count": 41
+      }
+    }
+  },
+  "notes": "Regenerated 2026-08-27 to fix three datagen bugs found via Eleri-1.5B eval: (1) currency leak (Ctx.currency randomized EUR 20% of the time regardless of anomaly, corrupting currency_mismatch labels in ~10% of ALL examples), (2) purpose_mismatch label noise (purpose/intent sampled independently, so many clean-match examples looked superficially mismatched), (3) duplicate_charge unlearnable (no signal in the actual input fields, only in unused meta). See train/README.md postmortem."
+}

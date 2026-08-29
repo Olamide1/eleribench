@@ -1,0 +1,144 @@
+{
+  "model": "gpt-4o-mini",
+  "n": 1500,
+  "test_file": "/Users/ola/Documents/Eleri/bench/test.jsonl",
+  "verdict": {
+    "accuracy": 0.682,
+    "macro_f1": 0.69199254672353,
+    "per_class": {
+      "match": {
+        "precision": 0.9184549356223176,
+        "recall": 0.6318897637795275,
+        "f1": 0.7486880466472303,
+        "support": 1016
+      },
+      "mismatch": {
+        "precision": 0.45,
+        "recall": 0.7481662591687042,
+        "f1": 0.5619834710743802,
+        "support": 409
+      },
+      "unverifiable": {
+        "precision": 0.6198347107438017,
+        "recall": 1.0,
+        "f1": 0.7653061224489797,
+        "support": 75
+      }
+    }
+  },
+  "category": {
+    "accuracy": 0.9553333333333334,
+    "macro_f1": 0.9578448621754636
+  },
+  "anomaly": {
+    "macro_f1": 0.3920441600089227,
+    "micro_f1": 0.4042821158690177,
+    "per_anomaly": {
+      "amount_exceeds_mandate": {
+        "precision": 0.41379310344827586,
+        "recall": 0.96,
+        "f1": 0.5783132530120482,
+        "support": 50
+      },
+      "vendor_not_allowed": {
+        "precision": 0.6666666666666666,
+        "recall": 0.8363636363636363,
+        "f1": 0.7419354838709676,
+        "support": 55
+      },
+      "mandate_expired": {
+        "precision": 0.12276214833759591,
+        "recall": 0.8727272727272727,
+        "f1": 0.21524663677130046,
+        "support": 55
+      },
+      "no_matching_mandate": {
+        "precision": 0.06060606060606061,
+        "recall": 0.04,
+        "f1": 0.048192771084337345,
+        "support": 50
+      },
+      "purpose_mismatch": {
+        "precision": 0.5161290322580645,
+        "recall": 0.26666666666666666,
+        "f1": 0.3516483516483517,
+        "support": 60
+      },
+      "duplicate_charge": {
+        "precision": 0.3333333333333333,
+        "recall": 0.017241379310344827,
+        "f1": 0.03278688524590164,
+        "support": 58
+      },
+      "address_poisoning_lookalike": {
+        "precision": 1.0,
+        "recall": 0.29411764705882354,
+        "f1": 0.45454545454545453,
+        "support": 51
+      },
+      "wrong_network_or_token": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 53
+      },
+      "settlement_not_found": {
+        "precision": 1.0,
+        "recall": 0.9454545454545454,
+        "f1": 0.9719626168224299,
+        "support": 55
+      },
+      "budget_period_at_risk": {
+        "precision": 1.0,
+        "recall": 0.5434782608695652,
+        "f1": 0.704225352112676,
+        "support": 46
+      },
+      "velocity_anomaly": {
+        "precision": 1.0,
+        "recall": 0.3,
+        "f1": 0.4615384615384615,
+        "support": 50
+      },
+      "amount_discrepancy": {
+        "precision": 1.0,
+        "recall": 0.09302325581395349,
+        "f1": 0.1702127659574468,
+        "support": 43
+      },
+      "currency_mismatch": {
+        "precision": 1.0,
+        "recall": 0.9777777777777777,
+        "f1": 0.9887640449438202,
+        "support": 45
+      },
+      "split_transaction_pattern": {
+        "precision": 1.0,
+        "recall": 0.08771929824561403,
+        "f1": 0.16129032258064516,
+        "support": 57
+      },
+      "stale_settlement": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 57
+      }
+    }
+  },
+  "ece_10bin": 0.24018666666666655,
+  "confidence_threshold_99pct": {
+    "tau": 1.01,
+    "coverage": 0.0,
+    "accuracy_at_tau": 1.0
+  },
+  "parse_failures": 0,
+  "business_rule_violations": 1,
+  "tokens": {
+    "input": 5777852,
+    "output": 64823
+  },
+  "cost_usd": 0.9055716,
+  "cost_usd_per_1k_audits": 0.6037144,
+  "wall_clock_seconds": 2399.956549882889
+}

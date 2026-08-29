@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eleri.dev/schemas/verdict.schema.json",
+  "title": "EleriVerdict",
+  "description": "Output of Eleri per PRD §3.1. Constrained-decoded at inference.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "category", "anomalies", "confidence", "reason"],
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": ["match", "mismatch", "unverifiable"]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "compute_inference",
+        "data_api",
+        "storage_bandwidth",
+        "saas_subscription",
+        "software_tools",
+        "content_media",
+        "communications",
+        "advertising_promotion",
+        "commerce_goods",
+        "commerce_services",
+        "travel_logistics",
+        "financial_fees",
+        "network_gas_fees",
+        "human_services",
+        "deposits_transfers",
+        "other_unclassified"
+      ]
+    },
+    "anomalies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "amount_exceeds_mandate",
+          "vendor_not_allowed",
+          "mandate_expired",
+          "no_matching_mandate",
+          "purpose_mismatch",
+          "duplicate_charge",
+          "budget_period_at_risk",
+          "velocity_anomaly",
+          "amount_discrepancy",
+          "currency_mismatch",
+          "split_transaction_pattern",
+          "stale_settlement",
+          "address_poisoning_lookalike",
+          "wrong_network_or_token",
+          "settlement_not_found"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "reason": {
+      "type": "string",
+      "description": "One sentence, max ~30 tokens, citing the decisive field(s)."
+    }
+  },
+  "$comment": "Business rules enforced outside JSON Schema (see schemas/python/models.py validators): verdict=match requires no blocking anomaly present; verdict=unverifiable requires mandate or payment missing/unreadable; blocking anomalies are amount_exceeds_mandate, vendor_not_allowed, mandate_expired, no_matching_mandate, purpose_mismatch, duplicate_charge, address_poisoning_lookalike, wrong_network_or_token, settlement_not_found."
+}

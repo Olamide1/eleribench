@@ -1,0 +1,132 @@
+{
+  "model": "eleri-1.5b",
+  "test_file": "bench/test.jsonl",
+  "n": 1500,
+  "verdict": {
+    "accuracy": 0.972,
+    "macro_f1": 0.9207000762757086,
+    "per_class": {
+      "match": {
+        "precision": 1.0,
+        "recall": 0.9881889763779528,
+        "f1": 0.994059405940594,
+        "support": 1016
+      },
+      "mismatch": {
+        "precision": 1.0,
+        "recall": 0.9951100244498777,
+        "f1": 0.9975490196078431,
+        "support": 409
+      },
+      "unverifiable": {
+        "precision": 1.0,
+        "recall": 0.6266666666666667,
+        "f1": 0.7704918032786886,
+        "support": 75
+      }
+    }
+  },
+  "category": {
+    "accuracy": 0.972,
+    "macro_f1": 0.9891372198087366
+  },
+  "anomaly": {
+    "macro_f1": 0.989015879080208,
+    "micro_f1": 0.9890534449452673,
+    "per_anomaly": {
+      "amount_exceeds_mandate": {
+        "precision": 1.0,
+        "recall": 0.94,
+        "f1": 0.9690721649484536,
+        "support": 50
+      },
+      "vendor_not_allowed": {
+        "precision": 1.0,
+        "recall": 0.9272727272727272,
+        "f1": 0.9622641509433962,
+        "support": 55
+      },
+      "mandate_expired": {
+        "precision": 1.0,
+        "recall": 0.9818181818181818,
+        "f1": 0.9908256880733944,
+        "support": 55
+      },
+      "no_matching_mandate": {
+        "precision": 1.0,
+        "recall": 0.98,
+        "f1": 0.98989898989899,
+        "support": 50
+      },
+      "purpose_mismatch": {
+        "precision": 1.0,
+        "recall": 0.9666666666666667,
+        "f1": 0.983050847457627,
+        "support": 60
+      },
+      "duplicate_charge": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 58
+      },
+      "address_poisoning_lookalike": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 51
+      },
+      "wrong_network_or_token": {
+        "precision": 1.0,
+        "recall": 0.9811320754716981,
+        "f1": 0.9904761904761905,
+        "support": 53
+      },
+      "settlement_not_found": {
+        "precision": 1.0,
+        "recall": 0.9818181818181818,
+        "f1": 0.9908256880733944,
+        "support": 55
+      },
+      "budget_period_at_risk": {
+        "precision": 1.0,
+        "recall": 0.9782608695652174,
+        "f1": 0.989010989010989,
+        "support": 46
+      },
+      "velocity_anomaly": {
+        "precision": 1.0,
+        "recall": 0.98,
+        "f1": 0.98989898989899,
+        "support": 50
+      },
+      "amount_discrepancy": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 43
+      },
+      "currency_mismatch": {
+        "precision": 1.0,
+        "recall": 0.9777777777777777,
+        "f1": 0.9887640449438202,
+        "support": 45
+      },
+      "split_transaction_pattern": {
+        "precision": 1.0,
+        "recall": 0.9824561403508771,
+        "f1": 0.9911504424778761,
+        "support": 57
+      },
+      "stale_settlement": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 57
+      }
+    }
+  },
+  "ece_10bin": 0.04997799999998737,
+  "parse_failures": 42,
+  "cost_usd_per_1k_audits": 0.6158951462860461
+}

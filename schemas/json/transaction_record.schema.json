@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eleri.dev/schemas/transaction_record.schema.json",
+  "title": "TransactionRecord",
+  "description": "Input to Eleri: a mandate + activity + payment triple. Any part may be missing (real logs are messy).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "mandate": {
+      "$ref": "#/$defs/Mandate"
+    },
+    "activity": {
+      "$ref": "#/$defs/Activity"
+    },
+    "payment": {
+      "$ref": "#/$defs/Payment"
+    }
+  },
+  "$defs": {
+    "Mandate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mandate_id": { "type": "string" },
+        "budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "amount": { "type": "number", "minimum": 0 },
+            "currency": { "type": "string", "description": "ISO 4217 code or token symbol, e.g. USD, EUR, USDC" },
+            "period": {
+              "type": "string",
+              "enum": ["one_time", "daily", "weekly", "monthly", "annual"]
+            }
+          },
+          "required": ["amount", "currency", "period"]
+        },
+        "allowed_vendors": {
+          "type": "array",
+          "description": "Domains, wildcards, wallet addresses, or ENS/Basenames. Empty/absent = no allowlist restriction.",
+          "items": { "type": "string" }
+        },
+        "denied_vendors": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "allowed_purposes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "expiry": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "agent_id": { "type": "string" },
+        "agent_name": { "type": "string" },
+        "intent": {
+          "type": "string",
+          "description": "Free-text or short phrase describing what the agent set out to do."
+        },
+        "tool_calls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "tool": { "type": "string" },
+              "args": { "type": "object" },
+              "timestamp": { "type": "string", "format": "date-time" }
+            }
+          }
+        },
+        "window_start": { "type": "string", "format": "date-time" },
+        "window_end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Payment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "enum": ["x402", "ap2", "acp", "stripe", "other"]
+        },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "vendor": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "reference": { "type": "string", "description": "Receipt/settlement reference id." },
+        "chain": {
+          "type": "string",
+          "description": "e.g. base. Present only for on-chain settlements (Appendix C)."
+        },
+        "tx_hash": { "type": "string" },
+        "token_contract": { "type": "string" },
+        "token_decimals": { "type": "integer", "minimum": 0 },
+        "counterparty_address": { "type": "string" },
+        "settlement_status": {
+          "type": "string",
+          "enum": ["settled", "pending", "not_found"],
+          "description": "Set by the deterministic pre-check layer, not the model."
+        },
+        "fee_breakdown": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "gas": { "type": "number" },
+            "facilitator_fee": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}
