@@ -4,7 +4,7 @@ Public benchmark for agent-spend verification. See PRD §4, §7 Phase 2.
 
 ## What's built
 
-- `test.jsonl` — the locked 1,500-example test set, copied verbatim from `../datagen/output/test.jsonl` (seed 999, held out per `../datagen/MANIFEST.json`: disjoint vendor pools, disjoint agent IDs from train — see `../datagen/README.md`). CC-BY-4.0.
+- `test.jsonl` — the locked 1,500-example test set, copied verbatim from `../datagen/output/test.jsonl` (seed 999, held out per `../datagen/MANIFEST.json`: disjoint vendor pools, disjoint agent IDs from train — see `../datagen/README.md`). Apache 2.0, same as the rest of this repo — see [`LICENSE`](../LICENSE).
 - `few_shot.py` — the fixed 10-example few-shot set every baseline sees, pulled from the hand-written `../schemas/examples/eleri_examples.json` (never from generated data, so it can't leak a test example).
 - `prompting.py` — the one system prompt + few-shot conversation + output schema every baseline gets, identically (PRD §3.7: "identical prompt + 10 few-shot examples + same constrained-JSON schema").
 - `_schemas.py` — reuses `../schemas/python/models.py`'s enums, plus `EleriVerdictLoose`: the same fields as `EleriVerdict` but without the match+blocking-anomaly business rule, since baselines being *scored* legitimately violate it sometimes — that's a real signal (`business_rule_violations` in each summary), not something to swallow as a parse failure.
