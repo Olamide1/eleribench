@@ -11,7 +11,7 @@ Public benchmark for agent-spend verification. See PRD §4, §7 Phase 2.
 - `runners/` — `AnthropicRunner` (`claude-haiku-4-5`, via `messages.parse` structured output) and `OpenAIRunner` (`gpt-4o-mini`, via `chat.completions` strict `json_schema`). Both registered in `runners/RUNNERS`.
 - `pricing.py` — $/1M-token rates, checked 2026-08-26 (Haiku from the claude-api skill's cached table; GPT-4o-mini via live web search — $0.15/$0.60).
 - `metrics.py` — verdict accuracy + macro-F1, category accuracy + macro-F1, per-anomaly multi-label P/R/F1 (micro + macro), 10-bin ECE, and the confidence-threshold-τ/coverage fit from PRD §3.7.
-- `run_eval.py` — the one-command harness: `python bench/run_eval.py --model claude-haiku-4-5 [--limit N]`. Writes `results/<model>_predictions.jsonl` (raw, gitignored) and `results/<model>_summary.json` (tracked).
+- `run_eval.py` — the one-command harness: `python bench/run_eval.py --model claude-haiku-4-5 [--limit N]`. Before scoring anything, hashes `--test` and checks it against `../datagen/MANIFEST.json`'s split hashes; refuses to run (no API calls made) on a mismatch unless `--skip-hash-check` is passed, and records the matched split (or lack of one) in the summary. Writes `results/<model>_predictions.jsonl` (raw, gitignored) and `results/<model>_summary.json` (tracked).
 - `leaderboard.py` — reads every `results/*_summary.json` and writes `results/leaderboard.md`, including the §7 Phase 2 decision gate (flags if any baseline already clears 98% anomaly macro-F1).
 
 Not built yet:

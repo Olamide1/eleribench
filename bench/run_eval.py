@@ -11,6 +11,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 import time
@@ -36,6 +37,24 @@ ALL_ANOMALIES = [
     "currency_mismatch", "split_transaction_pattern", "stale_settlement",
 ]
 
+MANIFEST_PATH = Path(__file__).parent.parent / "datagen" / "MANIFEST.json"
+
+
+def verify_test_file(test_path: Path) -> tuple[str, str | None]:
+    """Hash test_path and look for a matching split in datagen/MANIFEST.json.
+
+    Returns (sha256_hex, matched_split_name_or_None). Doesn't raise — callers
+    decide what a non-match means (see --skip-hash-check).
+    """
+    digest = hashlib.sha256(test_path.read_bytes()).hexdigest()
+    if not MANIFEST_PATH.exists():
+        return digest, None
+    manifest = json.loads(MANIFEST_PATH.read_text())
+    for split_name, split in manifest.get("splits", {}).items():
+        if split.get("sha256") == digest:
+            return digest, split_name
+    return digest, None
+
 
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -43,9 +62,29 @@ def main() -> int:
     ap.add_argument("--test", default=str(Path(__file__).parent / "test.jsonl"))
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--out-dir", default=str(Path(__file__).parent / "results"))
+    ap.add_argument(
+        "--skip-hash-check", action="store_true",
+        help="Skip verifying --test against datagen/MANIFEST.json (for a deliberately custom test file).",
+    )
     args = ap.parse_args()
 
-    examples = [json.loads(line) for line in Path(args.test).open()]
+    test_path = Path(args.test)
+    test_sha256, matched_split = verify_test_file(test_path)
+    if matched_split:
+        print(f"Test file verified: sha256 matches MANIFEST.json's '{matched_split}' split.", file=sys.stderr)
+    elif args.skip_hash_check:
+        print(f"WARNING: {test_path} (sha256 {test_sha256}) matches no split in MANIFEST.json — "
+              "continuing anyway (--skip-hash-check).", file=sys.stderr)
+    else:
+        print(
+            f"ERROR: {test_path} (sha256 {test_sha256}) does not match any split's sha256 in "
+            f"{MANIFEST_PATH}. This isn't the locked test set (or MANIFEST.json is missing/stale) "
+            "— refusing to spend API calls scoring it. Pass --skip-hash-check if this is deliberate.",
+            file=sys.stderr,
+        )
+        return 1
+
+    examples = [json.loads(line) for line in test_path.open()]
     if args.limit:
         examples = examples[: args.limit]
 
@@ -115,7 +154,7 @@ def main() -> int:
     cost_per_1k = (cost / len(examples)) * 1000 if examples else 0.0
 
     try:
-        test_file_recorded = str(Path(args.test).resolve().relative_to(Path.cwd().resolve()))
+        test_file_recorded = str(test_path.resolve().relative_to(Path.cwd().resolve()))
     except ValueError:
         test_file_recorded = args.test
 
@@ -123,6 +162,8 @@ def main() -> int:
         "model": args.model,
         "n": len(examples),
         "test_file": test_file_recorded,
+        "test_file_sha256": test_sha256,
+        "test_file_verified_split": matched_split,
         "verdict": {"accuracy": verdict_m["accuracy"], "macro_f1": verdict_m["macro_f1"], "per_class": verdict_m["per_class"]},
         "category": {"accuracy": category_m["accuracy"], "macro_f1": category_m["macro_f1"]},
         "anomaly": {
