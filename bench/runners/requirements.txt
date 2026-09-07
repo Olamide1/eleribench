@@ -1,0 +1,3 @@
+-r ../../schemas/requirements.txt
+anthropic==1.0.0
+openai==3.3.1

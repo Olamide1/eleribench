@@ -135,9 +135,9 @@ the few-shot set can't leak a test example.
 ## Running it
 
 ```bash
+# tested on Python 3.12.1
 python3 -m venv .venv
-.venv/bin/pip install -r schemas/requirements.txt -r bench/runners/requirements.txt 2>/dev/null || \
-  .venv/bin/pip install -r schemas/requirements.txt anthropic openai
+.venv/bin/pip install -r bench/runners/requirements.txt
 
 export ANTHROPIC_API_KEY=...
 export OPENAI_API_KEY=...

@@ -1,2 +1,2 @@
 -r ../schemas/requirements.txt
-anthropic>=1.0
+anthropic==1.0.0
