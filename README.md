@@ -31,13 +31,14 @@ generated table and per-anomaly breakdown.
 | claude-haiku-4-5 (few-shot) | 0.808 | 0.684 | 0.128 | $5.26 |
 | gpt-4o-mini (few-shot) | 0.682 | 0.392 | 0.240 | $0.60 |
 
-Eleri-1.5b's cost figure is from the training-time evaluation harness (a
-naive per-call GPU-time estimate) — a production serving setup with batched,
-constrained decoding brings this down further (~$0.04–0.08/1k audits in
-Sawa's deployment); see that project for the serving-side numbers. GPT-4o-mini
-is nominally cheaper per audit than Eleri here, but at roughly a third the
-accuracy on the metric that matters most (anomaly detection) — cost alone
-isn't the useful comparison.
+Eleri-1.5b's cost figure is from the training-time evaluation harness in
+this repo (a naive per-call GPU-time estimate, not a production serving
+benchmark). A separate, unpublished project (Sawa) reports ~$0.04–0.08/1k
+audits with batched, constrained decoding — that number isn't verifiable
+from this repo, so treat it as a pointer, not a claim this benchmark backs.
+GPT-4o-mini is nominally cheaper per audit than Eleri here, but at roughly a
+third the accuracy on the metric that matters most (anomaly detection) —
+cost alone isn't the useful comparison.
 
 Both baselines get the identical prompt: one system prompt, a fixed 10-example
 few-shot set (drawn only from hand-written examples, never generated data, so
@@ -46,6 +47,52 @@ Nothing about the prompt was tuned per-model.
 
 Want to add a baseline? Open a PR — `bench/runners/` is a small provider
 registry (`AnthropicRunner`, `OpenAIRunner` today); adding one is additive.
+
+## Running it
+
+```bash
+# tested on Python 3.12.1
+python3 -m venv .venv
+.venv/bin/pip install -r bench/runners/requirements.txt
+
+export ANTHROPIC_API_KEY=...
+export OPENAI_API_KEY=...
+
+.venv/bin/python bench/run_eval.py --model claude-haiku-4-5
+.venv/bin/python bench/run_eval.py --model gpt-4o-mini
+.venv/bin/python bench/leaderboard.py
+```
+
+`run_eval.py --limit N` runs a quick partial pass. Full details, including
+what's tracked vs. gitignored in `bench/results/`, in
+[`bench/README.md`](bench/README.md).
+
+## Limitations
+
+- **Fully synthetic.** Every example — train, val, test — comes from
+  `datagen/`'s label-first templates, not from real agent transaction logs.
+  A planned realism check against ~100 real x402 settlements was never done
+  (see the acceptance checklist in [`datagen/README.md`](datagen/README.md)).
+- **No independent review of the generated labels.** A 300-example
+  human-review sample and log template exist (`datagen/qa_sample.py`,
+  `datagen/qa_review_log.md`), but the review itself was never carried out.
+- **The held-out test set is not a distribution-shift test.** `test.jsonl`
+  uses vendors and agent IDs disjoint from training, but the same generator
+  and the same protocol templates. A genuinely out-of-distribution slice
+  (`test_ood.jsonl`, a receipt format that appears nowhere in training) is
+  specified in [`bench/README.md`](bench/README.md) but not built. Nothing
+  here measures how any of these models handle a record shaped differently
+  from what they've seen.
+- **eleri-1.5b's headline numbers include a real parse-failure rate.** 42 of
+  1,500 test outputs (2.8%) failed to parse as valid JSON under plain greedy
+  decoding and count as misses in the accuracy figures above — they are not
+  excluded from the denominator (see `bench/metrics.py`). Constrained
+  decoding closes this structurally in Eleri's serving setup; the number
+  above is from this harness as it actually ran, without that.
+- **Self-reported.** All three leaderboard rows were run and reported by the
+  person who built eleri-1.5b, using the harness in this repo. None of it
+  has been independently reproduced. `run_eval.py` is a public, one-command
+  harness specifically so that can change.
 
 ## The task
 
@@ -115,15 +162,18 @@ test set during fine-tuning.
 Synthetic, not scraped — generated **label-first**: the ground-truth verdict
 and anomaly are decided before the record is rendered, not inferred after
 the fact, so every label is exact by construction rather than approximate.
-See [`datagen/README.md`](datagen/README.md) for the generation pipeline
-and a postmortem on three label-quality bugs found and fixed during Eleri's
-own development (currency leaking into unrelated examples, purpose/intent
-sampled independently causing false mismatches, and one anomaly type that
-was genuinely unlearnable from the input fields as originally rendered) —
-included because the fixes materially changed results (anomaly macro-F1
-went from 0.841 to 0.989), and because "how we found and fixed our own
-label-quality bugs" is exactly the kind of thing a benchmark should be
-transparent about, not quietly patch and move on from.
+See [`datagen/README.md`](datagen/README.md) for the generation pipeline.
+
+`datagen/MANIFEST.json`'s `notes` field documents three label-quality bugs
+found and fixed during Eleri's own development: currency leaking into
+unrelated examples, purpose/intent sampled independently causing false
+mismatches, and one anomaly type that was genuinely unlearnable from the
+input fields as originally rendered. Train/val/test were regenerated after
+the fixes, and both baselines in the leaderboard above were rerun on the
+regenerated test set — this README only reports post-fix numbers. The
+pre-fix numbers aren't reproduced here because the artifacts that produced
+them weren't kept, and a number this repo can't point to isn't one we'll
+state as fact.
 
 10 hand-written, human-verified examples (one per spend category isn't
 included in every split, but the full 33-example set covering every
@@ -131,25 +181,6 @@ category/anomaly/verdict combination is in
 [`schemas/examples/eleri_examples.json`](schemas/examples/eleri_examples.json))
 back the fixed few-shot set every baseline sees — never generated data, so
 the few-shot set can't leak a test example.
-
-## Running it
-
-```bash
-# tested on Python 3.12.1
-python3 -m venv .venv
-.venv/bin/pip install -r bench/runners/requirements.txt
-
-export ANTHROPIC_API_KEY=...
-export OPENAI_API_KEY=...
-
-.venv/bin/python bench/run_eval.py --model claude-haiku-4-5
-.venv/bin/python bench/run_eval.py --model gpt-4o-mini
-.venv/bin/python bench/leaderboard.py
-```
-
-`run_eval.py --limit N` runs a quick partial pass. Full details, including
-what's tracked vs. gitignored in `bench/results/`, in
-[`bench/README.md`](bench/README.md).
 
 ## Repo layout
 
