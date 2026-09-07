@@ -1,7 +1,7 @@
 {
   "model": "claude-haiku-4-5",
   "n": 1500,
-  "test_file": "/Users/ola/Documents/Eleri/bench/test.jsonl",
+  "test_file": "bench/test.jsonl",
   "verdict": {
     "accuracy": 0.808,
     "macro_f1": 0.7826139654716351,

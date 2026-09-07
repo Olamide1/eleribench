@@ -30,4 +30,4 @@ Test set: `bench/test.jsonl`, n=1500 (see `../datagen/MANIFEST.json` for the sha
 
 ## Decision gate (PRD §7 Phase 2 acceptance)
 
-**Gate triggered:** eleri-1.5b already hit ≥ 98% anomaly macro-F1 at this cost — revisit the fine-tune rationale before Phase 3 per PRD §7.
+No baseline hit the 98% anomaly-F1 gate (best: claude-haiku-4-5 at 0.684). Proceed to Phase 3 (fine-tune) as planned.

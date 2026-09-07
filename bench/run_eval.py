@@ -114,10 +114,15 @@ def main() -> int:
     cost = cost_usd(args.model, total_in_tokens, total_out_tokens)
     cost_per_1k = (cost / len(examples)) * 1000 if examples else 0.0
 
+    try:
+        test_file_recorded = str(Path(args.test).resolve().relative_to(Path.cwd().resolve()))
+    except ValueError:
+        test_file_recorded = args.test
+
     summary = {
         "model": args.model,
         "n": len(examples),
-        "test_file": args.test,
+        "test_file": test_file_recorded,
         "verdict": {"accuracy": verdict_m["accuracy"], "macro_f1": verdict_m["macro_f1"], "per_class": verdict_m["per_class"]},
         "category": {"accuracy": category_m["accuracy"], "macro_f1": category_m["macro_f1"]},
         "anomaly": {
